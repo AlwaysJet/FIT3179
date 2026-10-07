@@ -77,13 +77,13 @@
         </p>
 
 
-        <!-- Map 1 -->
+        <!-- Choropleth Map -->
 
         <div class="visualisation">
 
             <h2>Visitor Arrivals by Country</h2>
 
-            <div id="map1" class="map"></div>
+            <div id="choropleth" class="map"></div>
 
             <div class="description">
                 <p>
@@ -97,13 +97,13 @@
         </div>
 
 
-        <!-- Map 2 -->
+        <!-- Proportional Symbol Map -->
 
         <div class="visualisation">
 
             <h2>Visitor Arrivals by Australian State</h2>
 
-            <div id="map2" class="map"></div>
+            <div id="propsymbol" class="map"></div>
 
             <div class="description">
                 <p>
@@ -121,31 +121,31 @@
 
     <script>
 
-        // Map 1
+        // Choropleth Map
         vegaEmbed(
-            "#map1",
-            "map1.vg.json",
+            "#choropleth",
+            "choropleth.vg.json",
             {
                 actions: false
             }
         ).then(function(result) {
-            console.log("Map 1 loaded successfully.");
+            console.log("Choropleth map loaded successfully.");
         }).catch(function(error) {
-            console.error("Error loading Map 1:", error);
+            console.error("Error loading Choropleth map:", error);
         });
 
 
-        // Map 2
+        // Proportional Symbol Map
         vegaEmbed(
-            "#map2",
-            "map2.vg.json",
+            "#propsymbol",
+            "propsymbol.vg.json",
             {
                 actions: false
             }
         ).then(function(result) {
-            console.log("Map 2 loaded successfully.");
+            console.log("Proportional symbol map loaded successfully.");
         }).catch(function(error) {
-            console.error("Error loading Map 2:", error);
+            console.error("Error loading Proportional Symbol map:", error);
         });
 
     </script>
