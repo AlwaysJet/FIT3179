@@ -1,0 +1,60 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  
+    "title": {
+      "text": "Main Reasons for Visiting Australia - 2025-26",
+      "fontSize": 20,
+      "anchor": "middle"
+    },
+  
+    "width": 700,
+    "height": 400,
+  
+    "data": {
+      "url": "data/visitor_purpose.csv",
+      "format": {
+        "type": "csv"
+      }
+    },
+  
+    "mark": {
+      "type": "bar",
+      "size": 30,
+      "tooltip": true
+    },
+  
+    "encoding": {
+      "y": {
+        "field": "Reason",
+        "type": "nominal",
+        "sort": "-x",
+        "title": "Reason for Journey"
+      },
+  
+      "x": {
+        "field": "2025-26",
+        "type": "quantitative",
+        "title": "Percentage of Visitors (%)",
+        "scale": {
+          "domain": [0, 50]
+        },
+        "axis": {
+          "format": ".1f"
+        }
+      },
+  
+      "tooltip": [
+        {
+          "field": "Reason",
+          "type": "nominal",
+          "title": "Reason"
+        },
+        {
+          "field": "2025-26",
+          "type": "quantitative",
+          "title": "Percentage",
+          "format": ".1f"
+        }
+      ]
+    }
+  }
