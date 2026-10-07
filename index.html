@@ -10,10 +10,10 @@
     <!-- Vega -->
     <script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
 
-    <!-- Vega-Lite -->
+    <!-- Vega Lite -->
     <script src="https://cdn.jsdelivr.net/npm/vega-lite@5"></script>
 
-    <!-- Vega-Embed -->
+    <!-- Vega Embed -->
     <script src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
 
     <style>
@@ -45,6 +45,7 @@
         .visualisation {
             background-color: white;
             padding: 25px;
+            margin-bottom: 30px;
             border-radius: 8px;
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
         }
@@ -58,7 +59,7 @@
             line-height: 1.6;
         }
 
-        #map1 {
+        .map {
             width: 100%;
             overflow-x: auto;
         }
@@ -75,11 +76,14 @@
             Exploring international tourism patterns and visitor arrivals
         </p>
 
+
+        <!-- Map 1 -->
+
         <div class="visualisation">
 
             <h2>Visitor Arrivals by Country</h2>
 
-            <div id="map1"></div>
+            <div id="map1" class="map"></div>
 
             <div class="description">
                 <p>
@@ -92,9 +96,32 @@
 
         </div>
 
+
+        <!-- Map 2 -->
+
+        <div class="visualisation">
+
+            <h2>Visitor Arrivals by Australian State</h2>
+
+            <div id="map2" class="map"></div>
+
+            <div class="description">
+                <p>
+                    This proportional symbol map shows international visitor
+                    arrivals by Australian state and territory in July 2026.
+                    Larger circles represent a higher number of visitor arrivals,
+                    while smaller circles represent fewer arrivals.
+                </p>
+            </div>
+
+        </div>
+
     </div>
 
+
     <script>
+
+        // Map 1
         vegaEmbed(
             "#map1",
             "map1.vg.json",
@@ -106,6 +133,21 @@
         }).catch(function(error) {
             console.error("Error loading Map 1:", error);
         });
+
+
+        // Map 2
+        vegaEmbed(
+            "#map2",
+            "map2.vg.json",
+            {
+                actions: false
+            }
+        ).then(function(result) {
+            console.log("Map 2 loaded successfully.");
+        }).catch(function(error) {
+            console.error("Error loading Map 2:", error);
+        });
+
     </script>
 
 </body>
