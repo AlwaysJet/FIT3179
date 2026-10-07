@@ -81,14 +81,14 @@
 
         <div class="visualisation">
 
-            <h2>Visitor Arrivals by Country</h2>
+            <h2>Top 10 Source Countries for Visitor Arrivals</h2>
 
             <div id="choropleth" class="map"></div>
 
             <div class="description">
                 <p>
-                    This choropleth map shows international visitor arrivals
-                    to Australia by country of residence in July 2026.
+                    This choropleth map shows the top 10 source countries for
+                    international visitor arrivals to Australia in July 2026.
                     Darker blue indicates a higher number of visitor arrivals,
                     while lighter blue indicates fewer arrivals.
                 </p>
@@ -135,6 +135,27 @@
 
         </div>
 
+
+        <!-- Heatmap -->
+
+        <div class="visualisation">
+
+            <h2>International Visitor Arrivals by Source Country</h2>
+
+            <div id="heatmap" class="map"></div>
+
+            <div class="description">
+                <p>
+                    This heatmap compares international visitor arrivals from
+                    major source countries across selected financial years.
+                    Darker blue indicates a higher number of visitor arrivals,
+                    allowing changes in Australia's major visitor markets to
+                    be compared over time.
+                </p>
+            </div>
+
+        </div>
+
     </div>
 
 
@@ -164,6 +185,16 @@
         vegaEmbed(
             "#barchart",
             "barchart.vg.json",
+            {
+                actions: false
+            }
+        );
+
+
+        // Heatmap
+        vegaEmbed(
+            "#heatmap",
+            "heatmap.vg.json",
             {
                 actions: false
             }
