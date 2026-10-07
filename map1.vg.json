@@ -1,0 +1,96 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  
+    "title": "International Visitor Arrivals to Australia - July 2026",
+  
+    "width": 900,
+    "height": 500,
+  
+    "projection": {
+      "type": "equalEarth"
+    },
+  
+    "layer": [
+      {
+        "data": {
+          "url": "https://cdn.jsdelivr.net/npm/vega-datasets@3/data/world-110m.json",
+          "format": {
+            "type": "topojson",
+            "feature": "countries"
+          }
+        },
+  
+        "mark": {
+          "type": "geoshape",
+          "fill": "lightgray",
+          "stroke": "white"
+        }
+      },
+  
+      {
+        "data": {
+          "url": "https://cdn.jsdelivr.net/npm/vega-datasets@3/data/world-110m.json",
+          "format": {
+            "type": "topojson",
+            "feature": "countries"
+          }
+        },
+  
+        "transform": [
+          {
+            "lookup": "id",
+            "from": {
+              "data": {
+                "url": "data/visitors_country.csv",
+                "format": {
+                  "type": "csv"
+                }
+              },
+              "key": "id",
+              "fields": [
+                "Country of Residence",
+                "Jul-26"
+              ]
+            }
+          },
+          {
+            "filter": "datum['Jul-26'] != null"
+          },
+          {
+            "calculate": "toNumber(replace(datum['Jul-26'], ',', ''))",
+            "as": "Visitors"
+          }
+        ],
+  
+        "mark": {
+          "type": "geoshape",
+          "stroke": "white"
+        },
+  
+        "encoding": {
+          "color": {
+            "field": "Visitors",
+            "type": "quantitative",
+            "title": "Visitor Arrivals",
+            "scale": {
+              "scheme": "blues"
+            }
+          },
+  
+          "tooltip": [
+            {
+              "field": "Country of Residence",
+              "type": "nominal",
+              "title": "Country"
+            },
+            {
+              "field": "Visitors",
+              "type": "quantitative",
+              "title": "Visitors",
+              "format": ","
+            }
+          ]
+        }
+      }
+    ]
+  }
