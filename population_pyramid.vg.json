@@ -1,0 +1,145 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  
+    "title": {
+      "text": "International Visitor Arrivals by Age and Sex - 2025-26",
+      "fontSize": 24,
+      "anchor": "middle"
+    },
+  
+    "width": 700,
+    "height": 450,
+  
+    "data": {
+      "url": "data/visitor_age_sex.csv",
+      "format": {
+        "type": "csv"
+      }
+    },
+  
+    "transform": [
+      {
+        "calculate": "datum.Age === '100+' ? 100 : toNumber(datum.Age)",
+        "as": "AgeNumber"
+      },
+  
+      {
+        "calculate": "datum.AgeNumber < 15 ? '0-14' : datum.AgeNumber < 25 ? '15-24' : datum.AgeNumber < 35 ? '25-34' : datum.AgeNumber < 45 ? '35-44' : datum.AgeNumber < 55 ? '45-54' : datum.AgeNumber < 65 ? '55-64' : datum.AgeNumber < 75 ? '65-74' : datum.AgeNumber < 85 ? '75-84' : '85+'",
+        "as": "Age Group"
+      },
+  
+      {
+        "calculate": "datum.AgeNumber < 15 ? 1 : datum.AgeNumber < 25 ? 2 : datum.AgeNumber < 35 ? 3 : datum.AgeNumber < 45 ? 4 : datum.AgeNumber < 55 ? 5 : datum.AgeNumber < 65 ? 6 : datum.AgeNumber < 75 ? 7 : datum.AgeNumber < 85 ? 8 : 9",
+        "as": "Age Order"
+      },
+  
+      {
+        "fold": [
+          "Male",
+          "Female"
+        ],
+        "as": [
+          "Sex",
+          "Visitor Arrivals"
+        ]
+      },
+  
+      {
+        "calculate": "datum.Sex === 'Male' ? -toNumber(datum['Visitor Arrivals']) : toNumber(datum['Visitor Arrivals'])",
+        "as": "Value"
+      },
+  
+      {
+        "aggregate": [
+          {
+            "op": "sum",
+            "field": "Value",
+            "as": "Total Visitors"
+          }
+        ],
+        "groupby": [
+          "Age Group",
+          "Age Order",
+          "Sex"
+        ]
+      }
+    ],
+  
+    "mark": {
+      "type": "bar",
+      "size": 25,
+      "tooltip": true
+    },
+  
+    "encoding": {
+      "y": {
+        "field": "Age Group",
+        "type": "ordinal",
+        "title": "Age Group",
+        "sort": {
+          "field": "Age Order",
+          "order": "ascending"
+        }
+      },
+  
+      "x": {
+        "field": "Total Visitors",
+        "type": "quantitative",
+        "title": "Visitor Arrivals (thousands)",
+        "axis": {
+          "labelExpr": "abs(datum.value)"
+        }
+      },
+  
+      "color": {
+        "field": "Sex",
+        "type": "nominal",
+        "title": "Sex",
+        "scale": {
+          "domain": [
+            "Male",
+            "Female"
+          ],
+          "range": [
+            "#0072B2",
+            "#D55E00"
+          ]
+        }
+      },
+  
+      "tooltip": [
+        {
+          "field": "Age Group",
+          "type": "nominal",
+          "title": "Age Group"
+        },
+        {
+          "field": "Sex",
+          "type": "nominal",
+          "title": "Sex"
+        },
+        {
+          "field": "Total Visitors",
+          "type": "quantitative",
+          "title": "Visitor Arrivals ('000)",
+          "format": ".1f"
+        }
+      ]
+    },
+  
+    "config": {
+      "view": {
+        "stroke": null
+      },
+  
+      "axis": {
+        "labelFontSize": 12,
+        "titleFontSize": 13
+      },
+  
+      "legend": {
+        "labelFontSize": 12,
+        "titleFontSize": 13
+      }
+    }
+  }

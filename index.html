@@ -109,8 +109,8 @@
                 <p>
                     This proportional symbol map shows international visitor
                     arrivals by Australian state and territory in July 2026.
-                    Larger circles represent a higher number of visitor arrivals,
-                    while smaller circles represent fewer arrivals.
+                    Larger orange circles represent a higher number of visitor
+                    arrivals, while smaller circles represent fewer arrivals.
                 </p>
             </div>
 
@@ -148,9 +148,28 @@
                 <p>
                     This heatmap compares international visitor arrivals from
                     major source countries across selected financial years.
-                    Darker blue indicates a higher number of visitor arrivals,
+                    Darker purple indicates a higher number of visitor arrivals,
                     allowing changes in Australia's major visitor markets to
                     be compared over time.
+                </p>
+            </div>
+
+        </div>
+
+
+        <!-- Population Pyramid -->
+
+        <div class="visualisation">
+
+            <h2>Visitor Arrivals by Age and Sex</h2>
+
+            <div id="population_pyramid" class="map"></div>
+
+            <div class="description">
+                <p>
+                    This population pyramid shows international visitor arrivals
+                    by age group and sex in 2025-26. The bars show the distribution
+                    of male and female visitors across different age groups.
                 </p>
             </div>
 
@@ -195,6 +214,16 @@
         vegaEmbed(
             "#heatmap",
             "heatmap.vg.json",
+            {
+                actions: false
+            }
+        );
+
+
+        // Population Pyramid
+        vegaEmbed(
+            "#population_pyramid",
+            "population_pyramid.vg.json",
             {
                 actions: false
             }
