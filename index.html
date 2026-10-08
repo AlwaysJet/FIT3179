@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 
@@ -81,6 +82,7 @@
         <p class="subtitle">
             Exploring international tourism patterns and visitor arrivals
         </p>
+
 
         <!-- Visualisation 1: Choropleth Map -->
 
@@ -201,6 +203,26 @@
 
         </div>
 
+
+        <!-- Visualisation 7: Waterfall Chart -->
+
+        <div class="visualisation">
+
+            <h2>Changes in International Visitor Spending</h2>
+
+            <div id="waterfall_chart" class="chart"></div>
+
+            <div class="description">
+                <p>
+                    This waterfall chart shows changes in international visitor
+                    spending from 2016-17 to 2024-25. Green bars represent
+                    increases in spending, while red bars represent decreases.
+                    The chart highlights fluctuations in visitor spending and the strong growth observed in the later years.
+                </p>
+            </div>
+
+        </div>
+
     </div>
 
 
@@ -265,8 +287,19 @@
             }
         );
 
+
+        // Visualisation 7: Waterfall Chart
+        vegaEmbed(
+            "#waterfall_chart",
+            "waterfall_chart.vg.json",
+            {
+                actions: false
+            }
+        );
+
     </script>
 
 </body>
 
 </html>
+```

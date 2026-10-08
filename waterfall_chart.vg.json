@@ -1,0 +1,102 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  
+    "title": {
+      "text": "Changes in International Visitor Spending",
+      "subtitle": "Financial years 2016-17 to 2024-25",
+      "fontSize": 22,
+      "subtitleFontSize": 14,
+      "anchor": "middle"
+    },
+  
+    "width": 750,
+    "height": 450,
+  
+    "data": {
+      "url": "data/visitor_spending.csv",
+      "format": { "type": "csv" }
+    },
+  
+    "transform": [
+      {
+        "calculate": "datum['Financial Year'] || datum['\\ufeffFinancial Year'] || datum['Financial Year ']",
+        "as": "Year"
+      },
+      { "calculate": "toNumber(datum.Start)", "as": "StartN" },
+      { "calculate": "toNumber(datum.End)",   "as": "EndN" },
+      { "calculate": "toNumber(datum.Change)","as": "ChangeN" },
+      {
+        "calculate": "datum.Type === 'Start' ? 'Baseline' : datum.Type",
+        "as": "TypeLabel"
+      }
+    ],
+  
+    "layer": [
+      {
+        "mark": { "type": "bar", "size": 45 },
+        "encoding": {
+          "x": {
+            "field": "Year",
+            "type": "ordinal",
+            "sort": [
+              "2016-17","2017-18","2018-19","2019-20","2020-21",
+              "2021-22","2022-23","2023-24","2024-25"
+            ],
+            "title": "Financial Year",
+            "axis": { "labelAngle": 0 }
+          },
+  
+          "y": {
+            "field": "StartN",
+            "type": "quantitative",
+            "title": "International Visitor Spending ($ million)",
+            "scale": { "domain": [0, 60000], "nice": false },
+            "axis": { "format": ",.0f" }
+          },
+          "y2": { "field": "EndN" },
+  
+          "color": {
+            "field": "TypeLabel",
+            "type": "nominal",
+            "scale": {
+              "domain": ["Baseline", "Increase", "Decrease"],
+              "range": ["#4C78A8", "#54A24B", "#E45756"]
+            },
+            "legend": { "title": "Change" }
+          },
+  
+          "tooltip": [
+            { "field": "Year", "type": "ordinal", "title": "Financial Year" },
+            { "field": "StartN",  "type": "quantitative", "title": "Starting Spending ($m)", "format": ",.0f" },
+            { "field": "EndN",    "type": "quantitative", "title": "Ending Spending ($m)",   "format": ",.0f" },
+            { "field": "ChangeN", "type": "quantitative", "title": "Change ($m)",             "format": "+,.0f" }
+          ]
+        }
+      },
+      {
+        "mark": { "type": "text", "dy": -6, "fontSize": 10, "color": "#333" },
+        "encoding": {
+          "x": {
+            "field": "Year",
+            "type": "ordinal",
+            "sort": [
+              "2016-17","2017-18","2018-19","2019-20","2020-21",
+              "2021-22","2022-23","2023-24","2024-25"
+            ]
+          },
+          "y": { "field": "EndN", "type": "quantitative" },
+          "text": {
+            "condition": { "test": "datum.Type === 'Start'", "value": "" },
+            "field": "ChangeN",
+            "format": "+,.0f"
+          }
+        }
+      }
+    ],
+  
+    "config": {
+      "view": { "stroke": null },
+      "axis": { "labelFontSize": 12, "titleFontSize": 13 },
+      "legend": { "labelFontSize": 12, "titleFontSize": 13 }
+    }
+  }
