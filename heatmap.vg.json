@@ -1,109 +1,100 @@
 {
-    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-  
-    "title": {
-      "text": "International Visitor Arrivals by Source Country",
-      "fontSize": 20,
-      "anchor": "middle"
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+
+  "title": {
+    "text": "International Visitor Arrivals by Source Country",
+    "fontSize": 20,
+    "anchor": "middle"
+  },
+
+  "width": 650,
+  "height": 400,
+
+  "data": {
+    "url": "data/visitor_country_year.csv",
+    "format": {
+      "type": "csv"
+    }
+  },
+
+  "transform": [
+    {
+      "fold": [
+        "2015-16",
+        "2018-19",
+        "2024-25",
+        "2025-26"
+      ],
+      "as": [
+        "Year",
+        "Visitor Arrivals"
+      ]
+    }
+  ],
+
+  "mark": {
+    "type": "rect",
+    "stroke": "white",
+    "strokeWidth": 2
+  },
+
+  "encoding": {
+    "x": {
+      "field": "Year",
+      "type": "ordinal",
+      "title": "Financial Year",
+      "sort": [
+        "2015-16",
+        "2018-19",
+        "2024-25",
+        "2025-26"
+      ]
     },
-  
-    "width": 650,
-    "height": 400,
-  
-    "data": {
-      "url": "data/visitor_country_year.csv",
-      "format": {
-        "type": "csv"
+
+    "y": {
+      "field": "Country",
+      "type": "nominal",
+      "title": "Country",
+      "sort": [
+        "New Zealand",
+        "China",
+        "USA",
+        "UK",
+        "Singapore",
+        "Japan",
+        "India",
+        "Korea South",
+        "Hong Kong",
+        "Indonesia"
+      ]
+    },
+
+    "color": {
+      "field": "Visitor Arrivals",
+      "type": "quantitative",
+      "title": "Visitor Arrivals",
+      "scale": {
+        "scheme": "purples"
       }
     },
-  
-    "transform": [
+
+    "tooltip": [
       {
-        "fold": [
-          "2015-16",
-          "2018-19",
-          "2024-25",
-          "2025-26"
-        ],
-        "as": [
-          "Year",
-          "Visitor Arrivals"
-        ]
-      }
-    ],
-  
-    "mark": {
-      "type": "rect",
-      "stroke": "white",
-      "strokeWidth": 2
-    },
-  
-    "encoding": {
-  
-      "x": {
-        "field": "Year",
-        "type": "ordinal",
-        "title": "Financial Year",
-        "sort": [
-          "2015-16",
-          "2018-19",
-          "2024-25",
-          "2025-26"
-        ],
-        "axis": {
-          "labelAngle": 0
-        }
-      },
-  
-      "y": {
         "field": "Country",
         "type": "nominal",
-        "title": "Country of Residence",
-        "sort": [
-          "New Zealand",
-          "China",
-          "USA",
-          "UK",
-          "Singapore",
-          "Japan",
-          "India",
-          "Korea South",
-          "Hong Kong",
-          "Indonesia"
-        ]
+        "title": "Country"
       },
-  
-      "color": {
+      {
+        "field": "Year",
+        "type": "ordinal",
+        "title": "Financial Year"
+      },
+      {
         "field": "Visitor Arrivals",
         "type": "quantitative",
         "title": "Visitor Arrivals",
-        "scale": {
-          "scheme": "blues"
-        },
-        "legend": {
-          "format": ",.0f",
-          "titleFontSize": 13,
-          "labelFontSize": 11
-        }
-      },
-  
-      "tooltip": [
-        {
-          "field": "Country",
-          "type": "nominal",
-          "title": "Country"
-        },
-        {
-          "field": "Year",
-          "type": "ordinal",
-          "title": "Financial Year"
-        },
-        {
-          "field": "Visitor Arrivals",
-          "type": "quantitative",
-          "title": "Visitor Arrivals",
-          "format": ","
-        }
-      ]
-    }
+        "format": ","
+      }
+    ]
   }
+}
