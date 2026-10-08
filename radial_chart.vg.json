@@ -1,0 +1,75 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  
+    "title": {
+      "text": "Monthly International Visitor Arrivals - 2026",
+      "fontSize": 22,
+      "anchor": "middle"
+    },
+  
+    "width": 500,
+    "height": 500,
+  
+    "data": {
+      "url": "data/visitor_monthly.csv",
+      "format": { "type": "csv" }
+    },
+  
+    "transform": [
+      {
+        "filter": "indexof(['Jan 2026','Feb 2026','Mar 2026','Apr 2026','May 2026','Jun 2026','Jul 2026'], datum.Month) >= 0"
+      },
+      {
+        "calculate": "toNumber(datum.Visitors)",
+        "as": "Visitor Arrivals"
+      },
+      {
+        "calculate": "indexof(['Jan 2026','Feb 2026','Mar 2026','Apr 2026','May 2026','Jun 2026','Jul 2026'], datum.Month)",
+        "as": "MonthOrder"
+      }
+    ],
+  
+    "mark": {
+      "type": "arc",
+      "stroke": "white",
+      "strokeWidth": 2
+    },
+  
+    "encoding": {
+      "theta": {
+        "field": "Visitor Arrivals",
+        "type": "quantitative",
+        "scale": { "domain": [0, 1000], "range": [0, 3.141592653589793] },
+        "axis": null
+      },
+  
+      "radius": {
+        "field": "MonthOrder",
+        "type": "ordinal",
+        "scale": {
+          "type": "band",
+          "range": [70, 230],
+          "paddingInner": 0.1
+        }
+      },
+  
+      "color": {
+        "field": "Month",
+        "type": "nominal",
+        "sort": { "field": "MonthOrder", "order": "ascending" },
+        "legend": { "title": "Month", "columns": 2 }
+      },
+  
+      "tooltip": [
+        { "field": "Month", "type": "nominal", "title": "Month" },
+        {
+          "field": "Visitor Arrivals",
+          "type": "quantitative",
+          "title": "Visitor Arrivals ('000)",
+          "format": ",.2f"
+        }
+      ]
+    },
+  
+    "view": { "stroke": null }
+  }

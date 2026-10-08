@@ -63,6 +63,12 @@
             width: 100%;
             overflow-x: auto;
         }
+
+        .chart {
+            width: 100%;
+            overflow-x: auto;
+            text-align: center;
+        }
     </style>
 </head>
 
@@ -76,8 +82,7 @@
             Exploring international tourism patterns and visitor arrivals
         </p>
 
-
-        <!-- Choropleth Map -->
+        <!-- Visualisation 1: Choropleth Map -->
 
         <div class="visualisation">
 
@@ -97,7 +102,7 @@
         </div>
 
 
-        <!-- Proportional Symbol Map -->
+        <!-- Visualisation 2: Proportional Symbol Map -->
 
         <div class="visualisation">
 
@@ -109,21 +114,21 @@
                 <p>
                     This proportional symbol map shows international visitor
                     arrivals by Australian state and territory in July 2026.
-                    Larger orange circles represent a higher number of visitor
-                    arrivals, while smaller circles represent fewer arrivals.
+                    Larger circles represent a higher number of visitor arrivals,
+                    while smaller circles represent fewer arrivals.
                 </p>
             </div>
 
         </div>
 
 
-        <!-- Bar Chart -->
+        <!-- Visualisation 3: Bar Chart -->
 
         <div class="visualisation">
 
             <h2>Main Reasons for Visiting Australia</h2>
 
-            <div id="barchart" class="map"></div>
+            <div id="barchart" class="chart"></div>
 
             <div class="description">
                 <p>
@@ -136,19 +141,19 @@
         </div>
 
 
-        <!-- Heatmap -->
+        <!-- Visualisation 4: Heatmap -->
 
         <div class="visualisation">
 
             <h2>International Visitor Arrivals by Source Country</h2>
 
-            <div id="heatmap" class="map"></div>
+            <div id="heatmap" class="chart"></div>
 
             <div class="description">
                 <p>
                     This heatmap compares international visitor arrivals from
                     major source countries across selected financial years.
-                    Darker purple indicates a higher number of visitor arrivals,
+                    Darker blue indicates a higher number of visitor arrivals,
                     allowing changes in Australia's major visitor markets to
                     be compared over time.
                 </p>
@@ -157,19 +162,40 @@
         </div>
 
 
-        <!-- Population Pyramid -->
+        <!-- Visualisation 5: Population Pyramid -->
 
         <div class="visualisation">
 
-            <h2>Visitor Arrivals by Age and Sex</h2>
+            <h2>International Visitor Arrivals by Age and Sex</h2>
 
-            <div id="population_pyramid" class="map"></div>
+            <div id="population_pyramid" class="chart"></div>
 
             <div class="description">
                 <p>
-                    This population pyramid shows international visitor arrivals
-                    by age group and sex in 2025-26. The bars show the distribution
-                    of male and female visitors across different age groups.
+                    This population pyramid shows the distribution of international
+                    visitor arrivals by age group and sex in 2025-26. It allows
+                    differences in the age distribution of male and female visitors
+                    to be compared.
+                </p>
+            </div>
+
+        </div>
+
+
+        <!-- Visualisation 6: Radial Bar Chart -->
+
+        <div class="visualisation">
+
+            <h2>Monthly International Visitor Arrivals</h2>
+
+            <div id="radial_chart" class="chart"></div>
+
+            <div class="description">
+                <p>
+                    This radial bar chart shows monthly international visitor
+                    arrivals from January to July 2026. Longer bars represent
+                    higher numbers of visitor arrivals, allowing monthly patterns
+                    to be compared around the circular layout.
                 </p>
             </div>
 
@@ -180,7 +206,7 @@
 
     <script>
 
-        // Choropleth Map
+        // Visualisation 1: Choropleth Map
         vegaEmbed(
             "#choropleth",
             "choropleth.vg.json",
@@ -190,7 +216,7 @@
         );
 
 
-        // Proportional Symbol Map
+        // Visualisation 2: Proportional Symbol Map
         vegaEmbed(
             "#propsymbol",
             "propsymbol.vg.json",
@@ -200,7 +226,7 @@
         );
 
 
-        // Bar Chart
+        // Visualisation 3: Bar Chart
         vegaEmbed(
             "#barchart",
             "barchart.vg.json",
@@ -210,7 +236,7 @@
         );
 
 
-        // Heatmap
+        // Visualisation 4: Heatmap
         vegaEmbed(
             "#heatmap",
             "heatmap.vg.json",
@@ -220,10 +246,20 @@
         );
 
 
-        // Population Pyramid
+        // Visualisation 5: Population Pyramid
         vegaEmbed(
             "#population_pyramid",
             "population_pyramid.vg.json",
+            {
+                actions: false
+            }
+        );
+
+
+        // Visualisation 6: Radial Bar Chart
+        vegaEmbed(
+            "#radial_chart",
+            "radial_chart.vg.json",
             {
                 actions: false
             }
