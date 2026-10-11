@@ -1,4 +1,4 @@
-```html
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -217,7 +217,29 @@
                     This waterfall chart shows changes in international visitor
                     spending from 2016-17 to 2024-25. Green bars represent
                     increases in spending, while red bars represent decreases.
-                    The chart highlights fluctuations in visitor spending and the strong growth observed in the later years.
+                    The chart highlights fluctuations in visitor spending and
+                    the strong growth observed in the later years.
+                </p>
+            </div>
+
+        </div>
+
+
+        <!-- Visualisation 8: Bump Chart -->
+
+        <div class="visualisation">
+
+            <h2>Changes in Australian State Rankings for Visitor Arrivals</h2>
+
+            <div id="bump_chart" class="chart"></div>
+
+            <div class="description">
+                <p>
+                    This bump chart compares the rankings of Australian states
+                    and territories by annual short-term visitor arrivals from
+                    2020 to 2025. Rank 1 represents the state or territory with
+                    the highest number of visitor arrivals. The coloured lines
+                    show how rankings change over time.
                 </p>
             </div>
 
@@ -297,9 +319,18 @@
             }
         );
 
+
+        // Visualisation 8: Bump Chart
+        vegaEmbed(
+            "#bump_chart",
+            "bump_chart.vg.json",
+            {
+                actions: false
+            }
+        );
+
     </script>
 
 </body>
 
 </html>
-```

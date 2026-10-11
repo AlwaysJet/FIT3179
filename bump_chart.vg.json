@@ -1,0 +1,141 @@
+
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": {
+    "text": "Changes in Australian State Rankings for Visitor Arrivals (2020 to 2025)",
+    "subtitle": "Annual short-term visitor arrivals by Australian state and territory"
+  },
+  "width": 650,
+  "height": 420,
+  "background": "white",
+  "data": {
+    "url": "data/visitor_arrivals_2020_2025.csv",
+    "format": {
+      "type": "csv"
+    }
+  },
+  "transform": [
+    {
+      "calculate": "toNumber(datum.Year || datum['\\ufeffYear'] || datum['Year '] || '')",
+      "as": "YearNumber"
+    },
+    {
+      "calculate": "toNumber(replace(datum['Visitor Arrivals'] || datum['\\ufeffVisitor Arrivals'] || datum['Visitor Arrivals '] || '', /,/g, ''))",
+      "as": "Arrivals"
+    },
+    {
+      "filter": "isValid(datum.YearNumber) && isValid(datum.Arrivals)"
+    },
+    {
+      "window": [
+        {
+          "op": "rank",
+          "field": "Arrivals",
+          "as": "Rank"
+        }
+      ],
+      "groupby": ["YearNumber"],
+      "sort": [
+        {
+          "field": "Arrivals",
+          "order": "descending"
+        }
+      ]
+    },
+    {
+      "calculate": "toString(datum.YearNumber)",
+      "as": "YearLabel"
+    }
+  ],
+  "mark": {
+    "type": "line",
+    "point": {
+      "filled": true,
+      "size": 75
+    },
+    "strokeWidth": 3
+  },
+  "encoding": {
+    "x": {
+      "field": "YearLabel",
+      "type": "ordinal",
+      "title": "Year",
+      "sort": ["2020", "2021", "2022", "2023", "2024", "2025"],
+      "axis": {
+        "labelAngle": 0,
+        "labelOverlap": false,
+        "labelFlush": false,
+        "values": ["2020", "2021", "2022", "2023", "2024", "2025"],
+        "grid": false
+      }
+    },
+    "y": {
+      "field": "Rank",
+      "type": "quantitative",
+      "title": "Rank (1 = highest arrivals)",
+      "scale": {
+        "domain": [8.5, 0.5],
+        "nice": false
+      },
+      "axis": {
+        "values": [1, 2, 3, 4, 5, 6, 7, 8],
+        "format": "d",
+        "grid": true
+      }
+    },
+    "color": {
+      "field": "State",
+      "type": "nominal",
+      "title": "State / Territory",
+      "scale": {
+        "scheme": "tableau10"
+      }
+    },
+    "detail": {
+      "field": "State"
+    },
+    "order": {
+      "field": "YearNumber",
+      "type": "quantitative"
+    },
+    "tooltip": [
+      {
+        "field": "State",
+        "type": "nominal",
+        "title": "State / Territory"
+      },
+      {
+        "field": "YearNumber",
+        "type": "quantitative",
+        "title": "Year",
+        "format": "d"
+      },
+      {
+        "field": "Arrivals",
+        "type": "quantitative",
+        "title": "Visitor Arrivals",
+        "format": ","
+      },
+      {
+        "field": "Rank",
+        "type": "quantitative",
+        "title": "Rank"
+      }
+    ]
+  },
+  "config": {
+    "view": {
+      "stroke": null
+    },
+    "axis": {
+      "labelFontSize": 11,
+      "titleFontSize": 13,
+      "gridColor": "#e6e6e6"
+    },
+    "legend": {
+      "orient": "right",
+      "labelFontSize": 11,
+      "titleFontSize": 12
+    }
+  }
+}
