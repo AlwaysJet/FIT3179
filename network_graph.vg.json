@@ -1,0 +1,397 @@
+
+{
+    "$schema": "https://vega.github.io/schema/vega/v5.json",
+    "description": "Network graph connecting international airlines to countries, with edge thickness representing passenger traffic.",
+    "title": {
+      "text": "International Airline Connectivity to Australia",
+      "subtitle": "Connections between airlines and countries, weighted by total passengers",
+      "anchor": "middle",
+      "fontSize": 20,
+      "subtitleFontSize": 12,
+      "offset": 15
+    },
+    "width": 850,
+    "height": 650,
+    "padding": {
+      "left": 20,
+      "right": 120,
+      "top": 10,
+      "bottom": 20
+    },
+    "autosize": "pad",
+    "background": "white",
+  
+    "data": [
+      {
+        "name": "routes",
+        "url": "data/network_airlines.csv",
+        "format": {
+          "type": "csv",
+          "parse": {
+            "PassengersIn": "number",
+            "PassengersOut": "number",
+            "TotalPassengers": "number",
+            "Rank": "number"
+          }
+        },
+        "transform": [
+          {
+            "type": "formula",
+            "as": "Source",
+            "expr": "datum.Operator"
+          },
+          {
+            "type": "formula",
+            "as": "Target",
+            "expr": "datum.Country"
+          },
+          {
+            "type": "formula",
+            "as": "EdgeWidth",
+            "expr": "1 + 5 * datum.TotalPassengers / 3666412"
+          }
+        ]
+      },
+      {
+        "name": "airlines",
+        "source": "routes",
+        "transform": [
+          {
+            "type": "aggregate",
+            "groupby": ["Operator"],
+            "fields": ["TotalPassengers"],
+            "ops": ["sum"],
+            "as": ["Traffic"]
+          },
+          {
+            "type": "window",
+            "sort": {
+              "field": "Traffic",
+              "order": "descending"
+            },
+            "ops": ["row_number"],
+            "as": ["Position"]
+          },
+          {
+            "type": "formula",
+            "as": "x",
+            "expr": "110"
+          },
+          {
+            "type": "formula",
+            "as": "y",
+            "expr": "35 + (datum.Position - 1) * 37"
+          }
+        ]
+      },
+      {
+        "name": "countries",
+        "source": "routes",
+        "transform": [
+          {
+            "type": "aggregate",
+            "groupby": ["Country"],
+            "fields": ["TotalPassengers"],
+            "ops": ["sum"],
+            "as": ["Traffic"]
+          },
+          {
+            "type": "window",
+            "sort": {
+              "field": "Traffic",
+              "order": "descending"
+            },
+            "ops": ["row_number"],
+            "as": ["Position"]
+          },
+          {
+            "type": "formula",
+            "as": "x",
+            "expr": "790"
+          },
+          {
+            "type": "formula",
+            "as": "y",
+            "expr": "35 + (datum.Position - 1) * 42"
+          }
+        ]
+      }
+    ],
+  
+    "scales": [
+      {
+        "name": "nodeSize",
+        "type": "sqrt",
+        "domain": {
+          "data": "airlines",
+          "field": "Traffic"
+        },
+        "range": [100, 650]
+      },
+      {
+        "name": "countrySize",
+        "type": "sqrt",
+        "domain": {
+          "data": "countries",
+          "field": "Traffic"
+        },
+        "range": [100, 650]
+      },
+      {
+        "name": "edgeColor",
+        "type": "linear",
+        "domain": [0, 3666412],
+        "range": ["#dbeafe", "#1d4ed8"],
+        "clamp": true
+      }
+    ],
+  
+    "legends": [
+      {
+        "fill": "edgeColor",
+        "title": "Total Passengers",
+        "orient": "right",
+        "gradientLength": 180,
+        "offset": 90,
+        "format": "~s"
+      }
+    ],
+  
+    "marks": [
+      {
+        "type": "rule",
+        "name": "connections",
+        "from": {
+          "data": "routes"
+        },
+        "encode": {
+          "update": {
+            "x": {
+              "value": 110
+            },
+            "x2": {
+              "value": 790
+            },
+            "y": {
+              "signal": "35 + (indexof(pluck(data('airlines'), 'Operator'), datum.Operator)) * 37"
+            },
+            "y2": {
+              "signal": "35 + (indexof(pluck(data('countries'), 'Country'), datum.Country)) * 42"
+            },
+            "stroke": {
+              "scale": "edgeColor",
+              "field": "TotalPassengers"
+            },
+            "strokeWidth": {
+              "field": "EdgeWidth"
+            },
+            "strokeOpacity": {
+              "value": 0.45
+            },
+            "tooltip": {
+              "signal": "{'Airline': datum.Operator, 'Country': datum.Country, 'Total Passengers': format(datum.TotalPassengers, ',')}"
+            }
+          }
+        }
+      },
+      {
+        "type": "symbol",
+        "name": "airlineNodes",
+        "from": {
+          "data": "airlines"
+        },
+        "encode": {
+          "update": {
+            "x": {
+              "field": "x"
+            },
+            "y": {
+              "field": "y"
+            },
+            "size": {
+              "scale": "nodeSize",
+              "field": "Traffic"
+            },
+            "shape": {
+              "value": "circle"
+            },
+            "fill": {
+              "value": "#2563eb"
+            },
+            "stroke": {
+              "value": "white"
+            },
+            "strokeWidth": {
+              "value": 1.5
+            },
+            "tooltip": {
+              "signal": "{'Airline': datum.Operator, 'Total passengers across listed countries': format(datum.Traffic, ',')}"
+            }
+          }
+        }
+      },
+      {
+        "type": "text",
+        "name": "airlineLabels",
+        "from": {
+          "data": "airlines"
+        },
+        "encode": {
+          "update": {
+            "x": {
+              "signal": "datum.x - 15"
+            },
+            "y": {
+              "field": "y"
+            },
+            "text": {
+              "field": "Operator"
+            },
+            "align": {
+              "value": "right"
+            },
+            "baseline": {
+              "value": "middle"
+            },
+            "fontSize": {
+              "value": 10
+            },
+            "fill": {
+              "value": "#1e3a8a"
+            }
+          }
+        }
+      },
+      {
+        "type": "symbol",
+        "name": "countryNodes",
+        "from": {
+          "data": "countries"
+        },
+        "encode": {
+          "update": {
+            "x": {
+              "field": "x"
+            },
+            "y": {
+              "field": "y"
+            },
+            "size": {
+              "scale": "countrySize",
+              "field": "Traffic"
+            },
+            "shape": {
+              "value": "circle"
+            },
+            "fill": {
+              "value": "#f59e0b"
+            },
+            "stroke": {
+              "value": "white"
+            },
+            "strokeWidth": {
+              "value": 1.5
+            },
+            "tooltip": {
+              "signal": "{'Country': datum.Country, 'Total passengers across listed airlines': format(datum.Traffic, ',')}"
+            }
+          }
+        }
+      },
+      {
+        "type": "text",
+        "name": "countryLabels",
+        "from": {
+          "data": "countries"
+        },
+        "encode": {
+          "update": {
+            "x": {
+              "signal": "datum.x + 15"
+            },
+            "y": {
+              "field": "y"
+            },
+            "text": {
+              "field": "Country"
+            },
+            "align": {
+              "value": "left"
+            },
+            "baseline": {
+              "value": "middle"
+            },
+            "fontSize": {
+              "value": 10
+            },
+            "fill": {
+              "value": "#92400e"
+            }
+          }
+        }
+      },
+      {
+        "type": "text",
+        "encode": {
+          "enter": {
+            "x": {
+              "value": 110
+            },
+            "y": {
+              "value": 12
+            },
+            "text": {
+              "value": "AIRLINES"
+            },
+            "align": {
+              "value": "center"
+            },
+            "fontSize": {
+              "value": 13
+            },
+            "fontWeight": {
+              "value": "bold"
+            },
+            "fill": {
+              "value": "#1e3a8a"
+            }
+          }
+        }
+      },
+      {
+        "type": "text",
+        "encode": {
+          "enter": {
+            "x": {
+              "value": 790
+            },
+            "y": {
+              "value": 12
+            },
+            "text": {
+              "value": "COUNTRIES"
+            },
+            "align": {
+              "value": "center"
+            },
+            "fontSize": {
+              "value": 13
+            },
+            "fontWeight": {
+              "value": "bold"
+            },
+            "fill": {
+              "value": "#92400e"
+            }
+          }
+        }
+      }
+    ],
+  
+    "config": {
+      "view": {
+        "stroke": null
+      }
+    }
+  }
+  

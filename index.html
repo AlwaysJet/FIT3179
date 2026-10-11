@@ -83,7 +83,6 @@
             Exploring international tourism patterns and visitor arrivals
         </p>
 
-
         <!-- Visualisation 1: Choropleth Map -->
 
         <div class="visualisation">
@@ -102,7 +101,6 @@
             </div>
 
         </div>
-
 
         <!-- Visualisation 2: Proportional Symbol Map -->
 
@@ -123,7 +121,6 @@
 
         </div>
 
-
         <!-- Visualisation 3: Bar Chart -->
 
         <div class="visualisation">
@@ -141,7 +138,6 @@
             </div>
 
         </div>
-
 
         <!-- Visualisation 4: Heatmap -->
 
@@ -163,7 +159,6 @@
 
         </div>
 
-
         <!-- Visualisation 5: Population Pyramid -->
 
         <div class="visualisation">
@@ -183,7 +178,6 @@
 
         </div>
 
-
         <!-- Visualisation 6: Radial Bar Chart -->
 
         <div class="visualisation">
@@ -202,7 +196,6 @@
             </div>
 
         </div>
-
 
         <!-- Visualisation 7: Waterfall Chart -->
 
@@ -224,7 +217,6 @@
 
         </div>
 
-
         <!-- Visualisation 8: Bump Chart -->
 
         <div class="visualisation">
@@ -245,8 +237,28 @@
 
         </div>
 
-    </div>
+        <!-- Visualisation 9: Network Graph -->
 
+        <div class="visualisation">
+
+            <h2>International Airline Connectivity to Australia</h2>
+
+            <div id="network_airlines" class="chart"></div>
+
+            <div class="description">
+                <p>
+                    This network graph shows the relationships between international
+                    airlines and the countries associated with their passenger
+                    traffic records. Airline nodes are shown on the left, while
+                    country nodes are shown on the right. Connections represent
+                    airline-country records, with thicker lines indicating higher
+                    total passenger traffic.
+                </p>
+            </div>
+
+        </div>
+
+    </div>
 
     <script>
 
@@ -259,7 +271,6 @@
             }
         );
 
-
         // Visualisation 2: Proportional Symbol Map
         vegaEmbed(
             "#propsymbol",
@@ -268,7 +279,6 @@
                 actions: false
             }
         );
-
 
         // Visualisation 3: Bar Chart
         vegaEmbed(
@@ -279,7 +289,6 @@
             }
         );
 
-
         // Visualisation 4: Heatmap
         vegaEmbed(
             "#heatmap",
@@ -288,7 +297,6 @@
                 actions: false
             }
         );
-
 
         // Visualisation 5: Population Pyramid
         vegaEmbed(
@@ -299,7 +307,6 @@
             }
         );
 
-
         // Visualisation 6: Radial Bar Chart
         vegaEmbed(
             "#radial_chart",
@@ -308,7 +315,6 @@
                 actions: false
             }
         );
-
 
         // Visualisation 7: Waterfall Chart
         vegaEmbed(
@@ -319,11 +325,19 @@
             }
         );
 
-
         // Visualisation 8: Bump Chart
         vegaEmbed(
             "#bump_chart",
             "bump_chart.vg.json",
+            {
+                actions: false
+            }
+        );
+
+        // Visualisation 9: Network Graph
+        vegaEmbed(
+            "#network_airlines",
+            "network_graph.vg.json",
             {
                 actions: false
             }
