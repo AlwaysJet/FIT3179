@@ -1,0 +1,110 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "description": "Lollipop chart comparing tourism expenditure by product category in Australia in 2024-25.",
+  "width": 750,
+  "height": 450,
+    "title": {
+    "text": "Tourism Expenditure by Product Category in Australia",
+    "subtitle": "A$ million, ranked highest to lowest, 2024-25",
+    "fontSize": 18,
+    "subtitleFontSize": 12,
+    "anchor": "middle"
+    },
+  "data": {
+    "url": "data/tourism_expenditure.csv",
+    "format": {
+      "type": "csv"
+    }
+  },
+  "transform": [
+    {
+      "calculate": "toNumber(datum['2024-25'])",
+      "as": "Expenditure"
+    },
+    {
+      "filter": "isValid(datum.Expenditure) && isFinite(datum.Expenditure)"
+    }
+  ],
+  "encoding": {
+    "y": {
+      "field": "Product",
+      "type": "nominal",
+      "sort": {
+        "field": "Expenditure",
+        "order": "descending",
+        "op": "max"
+      },
+      "axis": {
+        "title": "Expenditure category",
+        "labelLimit": 260,
+        "labelFontSize": 11,
+        "titleFontSize": 12
+      }
+    },
+    "x": {
+      "field": "Expenditure",
+      "type": "quantitative",
+      "scale": {
+        "zero": true
+      },
+      "axis": {
+        "title": "Tourism expenditure (Millions)",
+        "format": ",.0f",
+        "grid": true,
+        "labelFontSize": 11,
+        "titleFontSize": 12
+      }
+    },
+    "tooltip": [
+      {
+        "field": "Product",
+        "type": "nominal",
+        "title": "Category"
+      },
+      {
+        "field": "Expenditure",
+        "type": "quantitative",
+        "title": "Expenditure",
+        "format": ",.0f"
+      }
+    ]
+  },
+  "layer": [
+    {
+      "mark": {
+        "type": "rule",
+        "color": "#9BB7D4",
+        "strokeWidth": 3
+      },
+      "encoding": {
+        "x": {
+          "datum": 0
+        },
+        "x2": {
+          "field": "Expenditure"
+        }
+      }
+    },
+    {
+      "mark": {
+        "type": "point",
+        "filled": true,
+        "size": 120,
+        "color": "#2563EB"
+      }
+    }
+  ],
+  "config": {
+    "background": "white",
+    "view": {
+      "stroke": null
+    },
+    "axis": {
+      "domainColor": "#CCCCCC",
+      "tickColor": "#CCCCCC",
+      "gridColor": "#EAEAEA",
+      "labelColor": "#333333",
+      "titleColor": "#333333"
+    }
+  }
+}
