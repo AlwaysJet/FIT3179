@@ -22,6 +22,7 @@
             margin: 0;
             padding: 0;
             background-color: #f5f5f5;
+            color: #333;
         }
 
         .container {
@@ -42,7 +43,9 @@
             margin-bottom: 30px;
         }
 
-        .visualisation {
+        .visualisation,
+        .student-details,
+        .sources {
             background-color: white;
             padding: 25px;
             margin-bottom: 30px;
@@ -50,7 +53,9 @@
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
         }
 
-        .visualisation h2 {
+        .visualisation h2,
+        .student-details h2,
+        .sources h2 {
             margin-top: 0;
         }
 
@@ -68,6 +73,56 @@
             width: 100%;
             overflow-x: auto;
             text-align: center;
+        }
+
+        /* Student details */
+        .student-details p {
+            margin: 12px 0;
+            line-height: 1.6;
+        }
+
+        .placeholder {
+            color: #777;
+        }
+
+        /* Sources */
+        .sources ul {
+            padding-left: 25px;
+            line-height: 1.8;
+        }
+
+        .sources li {
+            margin-bottom: 12px;
+        }
+
+        .sources a {
+            color: #1558a6;
+            text-decoration: none;
+            overflow-wrap: anywhere;
+        }
+
+        .sources a:hover {
+            text-decoration: underline;
+        }
+
+        .footer {
+            text-align: center;
+            color: #666;
+            font-size: 13px;
+            padding: 5px 0 20px;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                width: 94%;
+                padding-top: 20px;
+            }
+
+            .visualisation,
+            .student-details,
+            .sources {
+                padding: 18px;
+            }
         }
     </style>
 </head>
@@ -92,10 +147,11 @@
 
             <div class="description">
                 <p>
-                    This choropleth map shows the top 10 source countries for
-                    international visitor arrivals to Australia in July 2026.
-                    Darker blue indicates a higher number of visitor arrivals,
-                    while lighter blue indicates fewer arrivals.
+                    New Zealand recorded the highest number of international
+                    visitor arrivals in July 2026, followed by China and the
+                    United States. The remaining source countries recorded
+                    lower arrival numbers, showing that Australia's visitor
+                    market was concentrated among a few major source countries.
                 </p>
             </div>
 
@@ -111,10 +167,13 @@
 
             <div class="description">
                 <p>
-                    This proportional symbol map shows international visitor
-                    arrivals by Australian state and territory in July 2026.
-                    Larger circles represent a higher number of visitor arrivals,
-                    while smaller circles represent fewer arrivals.
+                    New South Wales recorded the highest number of international
+                    visitor arrivals in July 2026, followed by Queensland and
+                    Victoria. Western Australia attracted fewer visitors than
+                    these three leading states, while Tasmania, the Northern
+                    Territory and the ACT recorded the lowest arrival numbers.
+                    This indicates that visitor arrivals were concentrated
+                    in Australia's major states.
                 </p>
             </div>
 
@@ -130,9 +189,12 @@
 
             <div class="description">
                 <p>
-                    This bar chart shows the main reasons international visitors
-                    travelled to Australia in 2025-26. Holiday travel was the
-                    most common reason, followed by visiting friends and relatives.
+                    Holiday travel was the leading reason for visiting
+                    Australia in 2025 to 2026, accounting for 45.4% of visitors.
+                    Visiting friends and relatives ranked second at 32.1%.
+                    Together, these two purposes accounted for approximately
+                    77.5% of visitors, considerably exceeding the share
+                    represented by all other individual travel purposes.
                 </p>
             </div>
 
@@ -148,11 +210,13 @@
 
             <div class="description">
                 <p>
-                    This heatmap compares international visitor arrivals from
-                    major source countries across selected financial years.
-                    Darker blue indicates a higher number of visitor arrivals,
-                    allowing changes in Australia's major visitor markets to
-                    be compared over time.
+                    Visitor arrivals varied across source countries and
+                    financial years, reflecting changes in Australia's
+                    international tourism markets. The pandemic period
+                    disrupted arrivals across these markets, followed by
+                    a recovery in subsequent years. Differences between
+                    countries indicate that the recovery was not necessarily
+                    uniform across all source markets.
                 </p>
             </div>
 
@@ -168,10 +232,13 @@
 
             <div class="description">
                 <p>
-                    This population pyramid shows the distribution of international
-                    visitor arrivals by age group and sex in 2025-26. It allows
-                    differences in the age distribution of male and female visitors
-                    to be compared.
+                    Visitor arrivals are distributed unevenly across age
+                    groups, with some age ranges contributing more visitors
+                    than others. Differences between the male and female
+                    distributions reveal whether particular age groups
+                    have greater representation from one sex. This shows
+                    that international visitors are not evenly distributed
+                    across demographic groups.
                 </p>
             </div>
 
@@ -187,10 +254,14 @@
 
             <div class="description">
                 <p>
-                    This radial bar chart shows monthly international visitor
-                    arrivals from January to July 2026. Longer bars represent
-                    higher numbers of visitor arrivals, allowing monthly patterns
-                    to be compared around the circular layout.
+                    International visitor arrivals fluctuated between
+                    January and July 2026, showing that visitor numbers
+                    varied throughout the period. The differences between
+                    monthly totals indicate changes in travel demand rather
+                    than a constant level of arrivals. These monthly
+                    variations may reflect seasonal travel patterns, although
+                    a longer time series would be needed to establish
+                    recurring seasonality.
                 </p>
             </div>
 
@@ -206,11 +277,14 @@
 
             <div class="description">
                 <p>
-                    This waterfall chart shows changes in international visitor
-                    spending from 2016-17 to 2024-25. Green bars represent
-                    increases in spending, while red bars represent decreases.
-                    The chart highlights fluctuations in visitor spending and
-                    the strong growth observed in the later years.
+                    International visitor spending experienced substantial
+                    disruption during the COVID-19 period as travel
+                    restrictions affected inbound tourism. Spending
+                    subsequently recovered as international travel resumed,
+                    with increases in the later years indicating a recovery
+                    from the pandemic-related decline. The changes over time
+                    highlight the vulnerability of tourism spending to
+                    major disruptions in international travel.
                 </p>
             </div>
 
@@ -226,11 +300,14 @@
 
             <div class="description">
                 <p>
-                    This bump chart compares the rankings of Australian states
-                    and territories by annual short-term visitor arrivals from
-                    2020 to 2025. Rank 1 represents the state or territory with
-                    the highest number of visitor arrivals. The coloured lines
-                    show how rankings change over time.
+                    The ranking trends show differences in the relative
+                    positions of Australian states and territories between
+                    2020 and 2025. States that remain near the top maintain
+                    stronger positions in visitor arrivals, while changes
+                    in line positions indicate shifts in relative rankings.
+                    These movements show whether the distribution of visitor
+                    arrivals across states remained stable or changed over
+                    the period.
                 </p>
             </div>
 
@@ -246,12 +323,14 @@
 
             <div class="description">
                 <p>
-                    This network graph shows the relationships between international
-                    airlines and the countries associated with their passenger
-                    traffic records. Airline nodes are shown on the left, while
-                    country nodes are shown on the right. Connections represent
-                    airline-country records, with thicker lines indicating higher
-                    total passenger traffic.
+                    Passenger traffic is distributed unevenly across the
+                    airline-country connections represented in the dataset.
+                    Thicker links identify airline-country pairs with
+                    higher recorded passenger traffic, while thinner links
+                    represent lower volumes. The network highlights the
+                    relative importance of different connections within
+                    the selected records, rather than representing all
+                    international airline connectivity to Australia.
                 </p>
             </div>
 
@@ -267,14 +346,92 @@
 
             <div class="description">
                 <p>
-                    This lollipop chart compares tourism expenditure across
-                    different product categories in 2024-25. The categories are
-                    ranked from highest to lowest expenditure, making it easier
-                    to identify the products and services with the largest
-                    expenditure values.
+                    Restaurant and takeaway meals recorded the highest
+                    tourism expenditure in 2024 to 2025, followed by long-distance
+                    passenger transport and vehicle repair, maintenance and
+                    fuel. Taxi and rideshare services recorded substantially
+                    lower expenditure. This shows that expenditure was
+                    concentrated in several major product categories rather
+                    than being distributed evenly across all tourism-related
+                    products and services.
                 </p>
             </div>
 
+        </div>
+
+        <!-- Student Details -->
+
+        <div class="student-details">
+
+            <h2>Student Information</h2>
+
+            <p>
+                <strong>Name:</strong>
+                <span class="placeholder">Ong Tun Jet</span>
+            </p>
+
+            <p>
+                <strong>Student ID:</strong>
+                <span class="placeholder">33523398</span>
+            </p>
+
+            <p>
+                <strong>Date:</strong>
+                <span class="placeholder">14/10/2026</span>
+            </p>
+
+        </div>
+
+        <!-- Sources -->
+
+        <div class="sources">
+
+            <h2>Sources</h2>
+
+            <p>
+                The following official Australian government websites
+                provide statistics and data used for this visualisation.
+            </p>
+
+            <ul>
+                <li>
+                    <a
+                        href="https://www.abs.gov.au/statistics/industry/tourism-and-transport/overseas-arrivals-and-departures-australia/latest-release"
+                        target="_blank"
+                        rel="noopener noreferrer">
+                        Australian Bureau of Statistics (ABS) -
+                        Overseas Arrivals and Departures, Australia
+                        (Latest Release)
+                    </a>
+                </li>
+
+                <li>
+                    <a
+                        href="https://www.abs.gov.au/articles/overseas-arrivals-and-departures-australia-2025-26-financial-year#strr-age-and-sex"
+                        target="_blank"
+                        rel="noopener noreferrer">
+                        Australian Bureau of Statistics (ABS) -
+                        Overseas Arrivals and Departures, Australia:
+                        2025-26 Financial Year
+                    </a>
+                </li>
+
+                <li>
+                    <a
+                        href="https://www.bitre.gov.au/resource/aviation/international-airline-activity-time-series-data"
+                        target="_blank"
+                        rel="noopener noreferrer">
+                        Bureau of Infrastructure and Transport Research
+                        Economics (BITRE) -
+                        International Airline Activity: Time Series Data
+                    </a>
+                </li>
+            </ul>
+
+        </div>
+
+        <div class="footer">
+            International Visitors to Australia
         </div>
 
     </div>
@@ -285,90 +442,70 @@
         vegaEmbed(
             "#choropleth",
             "choropleth.vg.json",
-            {
-                actions: false
-            }
+            { actions: false }
         );
 
         // Visualisation 2: Proportional Symbol Map
         vegaEmbed(
             "#propsymbol",
             "propsymbol.vg.json",
-            {
-                actions: false
-            }
+            { actions: false }
         );
 
         // Visualisation 3: Bar Chart
         vegaEmbed(
             "#barchart",
             "barchart.vg.json",
-            {
-                actions: false
-            }
+            { actions: false }
         );
 
         // Visualisation 4: Heatmap
         vegaEmbed(
             "#heatmap",
             "heatmap.vg.json",
-            {
-                actions: false
-            }
+            { actions: false }
         );
 
         // Visualisation 5: Population Pyramid
         vegaEmbed(
             "#population_pyramid",
             "population_pyramid.vg.json",
-            {
-                actions: false
-            }
+            { actions: false }
         );
 
         // Visualisation 6: Radial Bar Chart
         vegaEmbed(
             "#radial_chart",
             "radial_chart.vg.json",
-            {
-                actions: false
-            }
+            { actions: false }
         );
 
         // Visualisation 7: Waterfall Chart
         vegaEmbed(
             "#waterfall_chart",
             "waterfall_chart.vg.json",
-            {
-                actions: false
-            }
+            { actions: false }
         );
 
         // Visualisation 8: Bump Chart
         vegaEmbed(
             "#bump_chart",
             "bump_chart.vg.json",
-            {
-                actions: false
-            }
+            { actions: false }
         );
 
         // Visualisation 9: Network Graph
         vegaEmbed(
             "#network_airlines",
             "network_graph.vg.json",
-            {
-                actions: false
-            }
+            { actions: false }
         );
 
         // Visualisation 10: Lollipop Chart
         vegaEmbed(
             "#lollipop_chart",
             "lollipop_chart.vg.json",
-            {
-                actions: false
-            }
+            { actions: false }
         );
 
     </script>
