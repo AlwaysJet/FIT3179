@@ -63,6 +63,24 @@
         {
           "calculate": "toNumber(replace(datum['Jul-26'], ',', ''))",
           "as": "Visitors"
+        },
+        {
+          "joinaggregate": [
+            {
+              "op": "min",
+              "field": "Visitors",
+              "as": "MinVisitors"
+            },
+            {
+              "op": "max",
+              "field": "Visitors",
+              "as": "MaxVisitors"
+            }
+          ]
+        },
+        {
+          "calculate": "(datum.Visitors - datum.MinVisitors) / (datum.MaxVisitors - datum.MinVisitors)",
+          "as": "NormalizedVisitors"
         }
       ],
 
@@ -73,11 +91,15 @@
 
       "encoding": {
         "color": {
-          "field": "Visitors",
+          "field": "NormalizedVisitors",
           "type": "quantitative",
           "title": "Visitor Arrivals",
           "scale": {
+            "domain": [0, 1],
             "scheme": "blues"
+          },
+          "legend": {
+            "format": ".1f"
           }
         },
 
@@ -90,8 +112,14 @@
           {
             "field": "Visitors",
             "type": "quantitative",
-            "title": "Visitors",
+            "title": "Actual Visitor Arrivals",
             "format": ","
+          },
+          {
+            "field": "NormalizedVisitors",
+            "type": "quantitative",
+            "title": "Normalized Value",
+            "format": ".3f"
           }
         ]
       }
