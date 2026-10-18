@@ -88,7 +88,26 @@
       "type": "nominal",
       "title": "State / Territory",
       "scale": {
-        "scheme": "tableau10"
+        "domain": [
+          "NSW",
+          "Victoria",
+          "Queensland",
+          "South Australia",
+          "Western Australia",
+          "Tasmania",
+          "Northern Territory",
+          "ACT"
+        ],
+        "range": [
+          "#4E79A7",
+          "#F28E2B",
+          "#B07AA1",
+          "#E6AB02",
+          "#76B7B2",
+          "#E15759",
+          "#9C755F",
+          "#79706E"
+        ]
       }
     },
     "detail": {

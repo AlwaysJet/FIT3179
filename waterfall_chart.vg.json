@@ -60,7 +60,7 @@
             "type": "nominal",
             "scale": {
               "domain": ["Baseline", "Increase", "Decrease"],
-              "range": ["#4C78A8", "#54A24B", "#E45756"]
+              "range": ["#4C78A8", "#E6AB02", "#E45756"]
             },
             "legend": { "title": "Change" }
           },
