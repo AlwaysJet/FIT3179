@@ -1,52 +1,41 @@
-
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+
   "title": {
     "text": "Changes in Australian State Rankings for Visitor Arrivals (2020 to 2025)",
     "subtitle": "Annual short-term visitor arrivals by Australian state and territory"
   },
+
   "width": 650,
   "height": 420,
   "background": "white",
+
   "data": {
     "url": "data/visitor_arrivals_2020_2025.csv",
     "format": {
       "type": "csv"
     }
   },
+
   "transform": [
-    {
-      "calculate": "toNumber(datum.Year || datum['\\ufeffYear'] || datum['Year '] || '')",
-      "as": "YearNumber"
-    },
-    {
-      "calculate": "toNumber(replace(datum['Visitor Arrivals'] || datum['\\ufeffVisitor Arrivals'] || datum['Visitor Arrivals '] || '', /,/g, ''))",
-      "as": "Arrivals"
-    },
-    {
-      "filter": "isValid(datum.YearNumber) && isValid(datum.Arrivals)"
-    },
     {
       "window": [
         {
           "op": "rank",
-          "field": "Arrivals",
+          "field": "Visitor Arrivals",
           "as": "Rank"
         }
       ],
-      "groupby": ["YearNumber"],
+      "groupby": ["Year"],
       "sort": [
         {
-          "field": "Arrivals",
+          "field": "Visitor Arrivals",
           "order": "descending"
         }
       ]
-    },
-    {
-      "calculate": "toString(datum.YearNumber)",
-      "as": "YearLabel"
     }
   ],
+
   "mark": {
     "type": "line",
     "point": {
@@ -55,20 +44,20 @@
     },
     "strokeWidth": 3
   },
+
   "encoding": {
     "x": {
-      "field": "YearLabel",
+      "field": "Year",
       "type": "ordinal",
       "title": "Year",
-      "sort": ["2020", "2021", "2022", "2023", "2024", "2025"],
+      "sort": "ascending",
       "axis": {
         "labelAngle": 0,
         "labelOverlap": false,
-        "labelFlush": false,
-        "values": ["2020", "2021", "2022", "2023", "2024", "2025"],
         "grid": false
       }
     },
+
     "y": {
       "field": "Rank",
       "type": "quantitative",
@@ -83,6 +72,7 @@
         "grid": true
       }
     },
+
     "color": {
       "field": "State",
       "type": "nominal",
@@ -110,13 +100,16 @@
         ]
       }
     },
+
     "detail": {
       "field": "State"
     },
+
     "order": {
-      "field": "YearNumber",
+      "field": "Year",
       "type": "quantitative"
     },
+
     "tooltip": [
       {
         "field": "State",
@@ -124,13 +117,12 @@
         "title": "State / Territory"
       },
       {
-        "field": "YearNumber",
-        "type": "quantitative",
-        "title": "Year",
-        "format": "d"
+        "field": "Year",
+        "type": "ordinal",
+        "title": "Year"
       },
       {
-        "field": "Arrivals",
+        "field": "Visitor Arrivals",
         "type": "quantitative",
         "title": "Visitor Arrivals",
         "format": ","
@@ -142,6 +134,7 @@
       }
     ]
   },
+
   "config": {
     "view": {
       "stroke": null
